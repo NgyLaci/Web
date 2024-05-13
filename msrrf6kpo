@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kő-Papír-Olló Játék</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #FBE996;
+    }
+    #result {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Kő-Papír-Olló Játék</h1>
+
+<div>
+  <button onclick="choose('kő')">Kő</button>
+  <button onclick="choose('papír')">Papír</button>
+  <button onclick="choose('olló')">Olló</button>
+</div>
+
+<div id="result"></div>
+<div id="score"></div>
+
+<script>
+  let playerWins = 0;
+  let computerWins = 0;
+  let draws = 0;
+
+  function choose(userChoice) {
+    const choices = ['kő', 'papír', 'olló'];
+    const randomIndex = Math.floor(Math.random() * 3);
+    const computerChoice = choices[randomIndex];
+
+    const result = determineWinner(userChoice, computerChoice);
+    updateScore(result);
+
+    document.getElementById('result').innerText = `A te választásod: ${userChoice}. A számítógép választása: ${computerChoice}. Eredmény: ${result}`;
+  }
+
+  function determineWinner(user, computer) {
+    if (user === computer) {
+      draws++;
+      return "Döntetlen!";
+    } else if ((user === 'kő' && computer === 'olló') ||
+               (user === 'papír' && computer === 'kő') ||
+               (user === 'olló' && computer === 'papír')) {
+      playerWins++;
+      return "A játékos nyert!";
+    } else {
+      computerWins++;
+      return "A számítógép nyert!";
+    }
+  }
+
+  function updateScore(result) {
+    document.getElementById('score').innerText = `Játékos: ${playerWins} | Számítógép: ${computerWins} | Döntetlen: ${draws}`;
+  }
+</script>
+
+</body>
+</html>
